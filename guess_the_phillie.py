@@ -1,4 +1,6 @@
 import requests
+import random
+import tkinter as tk
 
 API_KEY = "f9530621486645bf88b923e517024fb6"  # Replace with your SportsDataIO API key
 TEAM_CODE = "PHI"
@@ -11,6 +13,7 @@ def get_phillies_players():
     }
 
     response = requests.get(endpoint, headers=headers)
+    
 
     if response.status_code == 200:
         data = response.json()
@@ -32,9 +35,9 @@ if __name__ == "__main__":
             player_status = player.get('Status')
             player_first_name = player.get('FirstName' , '')
             player_last_name = player.get('LastName' , '')
-            player_name = player_first_name + " " + player_last_name
             player_position = player.get('Position')
             player_hometown = player.get('BirthCity')
+            player_name = player_first_name + " " + player_last_name
     
 
             # Store player information in the dictionary
@@ -47,11 +50,24 @@ if __name__ == "__main__":
                 }
                 phillies_players[player_name] = player_info
 
-        # Print the dictionary to the terminal
-    for player_name, player_info in phillies_players.items():
-        print(f"Player Name: {player_name}")
-        print(f"Status : {player_info['Status']}")
-        print(f"Position: {player_info['Height']}")
-        print(f"Hometown: {player_info['Hometown']}")
-        print("---------------------")
+    window = tk.Tk()
+    window.title("Random Active Phillie")
+    label = tk.Label(window, text="Placholder", font=("Arial", 150), fg ="white" )
+    label.pack()
+
+    # Create a label to display the selected player's name
+    
+    def get_random_phillie():
+        phillies_names = list(phillies_players.keys())
+        random_player = random.choice(phillies_names)
+        label.config(text=f"Random Active Phillie: {random_player}")
+        print(random_player)
+
+    # Create a button
+    button = tk.Button(window, text="Get Random Active Phillie", command=get_random_phillie)
+    button.pack()
+
+    # Start the Tkinter event loop
+    window.mainloop()
+
 
