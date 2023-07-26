@@ -1,4 +1,5 @@
 import requests
+
 API_KEY = "f9530621486645bf88b923e517024fb6"  # Replace with your SportsDataIO API key
 TEAM_CODE = "PHI"
 
@@ -13,6 +14,7 @@ def get_phillies_players():
 
     if response.status_code == 200:
         data = response.json()
+        data = {"data" : data}
         return data
     else:
         print("Error fetching Phillies player data.")
@@ -26,11 +28,14 @@ if __name__ == "__main__":
         phillies_players = {}
 
         # Extract and process player information
-        for player in players_data:
-            player_status = player.get('Status', '')
-            player_name = player.get('LastName', '')
-            player_position = player.get('Position', '')
-            player_hometown = player.get('BirthCity', '')
+        for player in players_data['data']:
+            player_status = player.get('Status')
+            player_first_name = player.get('FirstName' , '')
+            player_last_name = player.get('LastName' , '')
+            player_name = player_first_name + " " + player_last_name
+            player_position = player.get('Position')
+            player_hometown = player.get('BirthCity')
+    
 
             # Store player information in the dictionary
             if player_status == "Active":
@@ -43,10 +48,10 @@ if __name__ == "__main__":
                 phillies_players[player_name] = player_info
 
         # Print the dictionary to the terminal
-        for player_name, player_info in phillies_players.items():
-            print(f"Player Name: {player_name}")
-            print(f"Status : {player_info['Status']}")
-            print(f"Position: {player_info['Height']}")
-            print(f"Hometown: {player_info['Hometown']}")
-            print("---------------------")
+    for player_name, player_info in phillies_players.items():
+        print(f"Player Name: {player_name}")
+        print(f"Status : {player_info['Status']}")
+        print(f"Position: {player_info['Height']}")
+        print(f"Hometown: {player_info['Hometown']}")
+        print("---------------------")
 
