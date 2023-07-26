@@ -52,7 +52,7 @@ if __name__ == "__main__":
 
     window = tk.Tk()
     window.title("Random Active Phillie")
-    label = tk.Label(window, text="Placholder", font=("Arial", 150), fg ="white" )
+    label = tk.Label(window, text="Placholder", font=("Arial", 12), fg ="black" )
     label.pack()
 
     # Create a label to display the selected player's name
