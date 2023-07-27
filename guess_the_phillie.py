@@ -54,10 +54,15 @@ if __name__ == "__main__":
 #UI
 #draw pinstripes
     def draw_pinstripes(canvas, width, height, num_stripes, stripe_width):
+        stripe_height = height
+        white_stripe_width = stripe_width // 25  # Adjust this value for the desired ratio
+        red_stripe_width = stripe_width - white_stripe_width - 22
+
         for i in range(num_stripes):
-            x1 = i * stripe_width
-            x2 = x1 + stripe_width
-            canvas.create_line(x1, 0, x2, height, fill="red", width=2)
+            if i % 3 == 0:
+                canvas.create_rectangle(i * stripe_width, 0, i * stripe_width + red_stripe_width, stripe_height, fill="red")
+            else:
+                canvas.create_rectangle(i * stripe_width, 0, i * stripe_width + white_stripe_width, stripe_height, fill="white")
 
     window = tk.Tk()
     window.title("Random Active Phillie")
