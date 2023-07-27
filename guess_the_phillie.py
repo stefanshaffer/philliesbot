@@ -52,6 +52,7 @@ if __name__ == "__main__":
 
     window = tk.Tk()
     window.title("Random Active Phillie")
+    window.config(bg="red")
     label = tk.Label(window, text="Placholder", font=("Arial", 12), fg ="black" )
     label.pack()
 
